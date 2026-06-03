@@ -6,6 +6,9 @@ const HERO_BG = 'https://d64gsuwffb70l.cloudfront.net/6a096a75b04a12435b5976bd_1
 const TAROT_IMG = 'https://d64gsuwffb70l.cloudfront.net/6a096a75b04a12435b5976bd_1779002119074_822cb379.png';
 const WHEEL_IMG = 'https://d64gsuwffb70l.cloudfront.net/6a096a75b04a12435b5976bd_1779002140632_9c7d6c9c.png';
 const WHATSAPP_LINK = 'https://wa.me/917607267145?text=Hi%20Ekta%2C%20I%27d%20like%20to%20book%20a%20cosmic%20consultation';
+const WHATSAPP_BASE = 'https://wa.me/917607267145';
+
+const buildWhatsappUrl = (message: string) => `${WHATSAPP_BASE}?text=${encodeURIComponent(message)}`;
 
 // Price map (in INR rupees) — used by booking flow
 const SERVICE_PRICES: Record<string, number> = {
@@ -1182,7 +1185,16 @@ const BookingModal: React.FC<{
               {bookingId && <div className="flex justify-between text-amber-100/70"><span>Booking ID</span><span className="text-amber-100 text-[10px] truncate ml-2 max-w-[60%]" data-mixed-content="true">{bookingId}</span></div>}
             </div>
 
-            <a href={`${WHATSAPP_LINK}%0A%0ABooking%3A%20${encodeURIComponent(service)}%20on%20${encodeURIComponent(date)}%20at%20${encodeURIComponent(slot)}`} target="_blank" rel="noopener noreferrer" className="btn-gold inline-flex px-6 py-3 rounded-full font-semibold tracking-wide items-center gap-2">
+            <a href={buildWhatsappUrl(`Hi Ekta, I'd like to confirm my booking.
+
+Service: ${service}
+Date: ${date}
+Time: ${slot}
+Name: ${name}
+Email: ${email}
+WhatsApp: ${phone}
+Amount: ${formattedAmount}${bookingId ? `
+Booking ID: ${bookingId}` : ''}`)} target="_blank" rel="noopener noreferrer" className="btn-gold inline-flex px-6 py-3 rounded-full font-semibold tracking-wide items-center gap-2">
               <MessageCircle className="w-4 h-4" /> Confirm on WhatsApp
             </a>
           </div>}
